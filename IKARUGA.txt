@@ -1,0 +1,39 @@
+IKARUGA  ---  ÁULUS PINHO
+
+Descrição:
+
+Neste jogo você controla uma nave (a Ikaruga) capaz de abater naves inimigas através do toque. Para atingir tal objetivo, você conta com dois modos de navegação: Modo Verde e Modo Azul. Tais modos podem ser ativados apertando a tecla ESPAÇO.
+
+No Modo Verde você é capaz de abater (pelo toque) as naves inimigas de cor Verde, porem morre ao tocar as naves de cor Azul. De maneira análoga, ao navegar no Modo Azul você é capaz de abater as naves inimigas de cor Azul, porém morre ao contato com uma nave de cor Verde.
+
+O jogo termina quando a sua nave (Ikaruga) morre.
+
+Teclas de Comando:
+
+W – Move a Ikaruga para CIMA
+A - Move a Ikaruga para ESQUERDA
+D - Move a Ikaruga para DIREITA
+S - Move a Ikaruga para BAIXO
+ESPAÇO - Troca o Modo de Navegação da Ikaruga (Verde/Azul)
+
+Sobre o Código:
+
+Os componentes e variáveis relacionados à Ikaruga e aos inimigos foram organizados em estruturas de dados próprias de cada um; todos contam com variáveis de posição x e y, variáveis de movimentação dx e dy, variáveis de verificação de existência e, no caso especial da Ikaruga, variáveis booleanas de movimentação (controladas e modificadas pelo player) e cor (Modos Verde e Azul).
+
+Foram criados vetores das estruturas de dados dos inimigos, e para a criação dos bitmaps de cada um, o espaço foi alocado dinamicamente. Isso se deu porque em testes realizados em computador disponível, verificou-se que ser uma boa opção para evitar explosões de memória.
+
+Para controlar a movimentação de cada inimigo foi criado uma função que recebe como parâmetro a estrutura de dados de cada inimigo (por referência) e a posição da Ikaruga (por valor) para efeitos de comparação. Todos os inimigos perseguem a Ikaruga enquanto realizam percurso ‘descendente’ no espaço do jogo. Vale lembrar que o movimento só acontece se for possível a mudança de posição sem ultrapassar o limite da tela.
+
+As colisões são estruturadas por uma função que verifica as posições do inimigo em relação a da Ikaruga. Se ocorre colisão entre um inimigo de mesma cor que a Ikaruga (no mesmo instante) uma variável de pontuação recebe incremento de valor 1. Este valor é mostrado na tela de jogo. Mas se ocorre colisão entre um inimigo de cor diferente da Ikaruga, a condição de existência da mesma é alterada para 0 e o jogo termina.
+
+Ainda em relação aos inimigos, se os mesmos ultrapassarem o limite inferior da tela ou se sofrerem colisão – sendo eles da mesma cor da Ikaruga – uma função de ‘tele-transporte’ é ativada. Esta função é responsável por mover o inimigo para uma posição de início aleatória de modo a recomeçar sua trajetória em direção à Ikaruga. O funcionamento da função de colisão não é atrapalhado pela função de ‘tele-transporte’. Deste modo foi possível criar uma impressão de continuidade e fluidez ao jogo bastante satisfatórios.
+
+As funções de colisão e ‘tele-transporte’, bem como as de movimentação dos inimigos são verificadas e ativadas duas vezes para uma mesma fração de tempo:
+- Durante o ALLEGRO_EVENT_TIMER;
+- Durante o event_queue_empty;
+
+Desta maneira, foi possível criar uma impressão de fluidez ao jogo, bem como monitorar com mais precisão as colisões e ‘tele-tranportes’.
+
+Em relação à Ikaruga, sua movimentação ocorre mediante ativação de suas variáveis booleanas de movimento, que são ativadas no ALLEGRO_EVENT_KEY_DOWN e desativadas no ALLEGRO_EVENT_KEY_UP. Desta maneira, a movimentação da Ikaruga ficou fluída e leve. O desenho da mesma nas novas posições alteradas pelo teclado é feito no event_queue_empty, permitindo assim que a Ikaruga seja desenhada na tela quando já não exista mais nenhum evento responsável por alterar sua condição. Vale lembrar que o movimento só acontece se for possível a mudança de posição sem ultrapassar o limite da tela.
+
+Ao final do jogo o score do player é comparado com o valor de recorde armazenado em um arquivo binário (que é mais leve e gasta menos memória no processo de modificação) e então uma mensagem na tela aponta se houve um novo recorde alcançado. Caso contrário, uma outra mensagem é mostrada, contendo a informação da pontuação alcançada pelo player e o recorde atual do jogo.
