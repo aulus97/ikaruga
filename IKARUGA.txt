@@ -22,7 +22,7 @@ Os componentes e variáveis relacionados à Ikaruga e aos inimigos foram organizad
 
 Foram criados vetores das estruturas de dados dos inimigos, e para a criação dos bitmaps de cada um, o espaço foi alocado dinamicamente. Isso se deu porque em testes realizados em computador disponível, verificou-se que ser uma boa opção para evitar explosões de memória.
 
-Para controlar a movimentação de cada inimigo foi criado uma função que recebe como parâmetro a estrutura de dados de cada inimigo (por referência) e a posição da Ikaruga (por valor) para efeitos de comparação. Todos os inimigos perseguem a Ikaruga enquanto realizam percurso ‘descendente’ no espaço do jogo. Vale lembrar que o movimento só acontece se for possível a mudança de posição sem ultrapassar o limite da tela.
+Para controlar a movimentação de cada inimigo foi criado uma função que recebe como parâmetro a estrutura de dados de cada inimigo (por referência) e a posição da Ikaruga (por valor) para efeitos de comparação. Todos os inimigos perseguem a Ikaruga enquanto realizam percurso ‘descendente’ no espaço do jogo.
 
 As colisões são estruturadas por uma função que verifica as posições do inimigo em relação a da Ikaruga. Se ocorre colisão entre um inimigo de mesma cor que a Ikaruga (no mesmo instante) uma variável de pontuação recebe incremento de valor 1. Este valor é mostrado na tela de jogo. Mas se ocorre colisão entre um inimigo de cor diferente da Ikaruga, a condição de existência da mesma é alterada para 0 e o jogo termina.
 
@@ -34,6 +34,6 @@ As funções de colisão e ‘tele-transporte’, bem como as de movimentação dos inimi
 
 Desta maneira, foi possível criar uma impressão de fluidez ao jogo, bem como monitorar com mais precisão as colisões e ‘tele-tranportes’.
 
-Em relação à Ikaruga, sua movimentação ocorre mediante ativação de suas variáveis booleanas de movimento, que são ativadas no ALLEGRO_EVENT_KEY_DOWN e desativadas no ALLEGRO_EVENT_KEY_UP. Desta maneira, a movimentação da Ikaruga ficou fluída e leve. O desenho da mesma nas novas posições alteradas pelo teclado é feito no event_queue_empty, permitindo assim que a Ikaruga seja desenhada na tela quando já não exista mais nenhum evento responsável por alterar sua condição. Vale lembrar que o movimento só acontece se for possível a mudança de posição sem ultrapassar o limite da tela.
+Em relação à Ikaruga, sua movimentação ocorre mediante ativação de suas variáveis booleanas de movimento, que são ativadas no ALLEGRO_EVENT_KEY_DOWN e desativadas no ALLEGRO_EVENT_KEY_UP. Desta maneira, a movimentação da Ikaruga ficou fluída e leve. O desenho da mesma nas novas posições alteradas pelo teclado é feito no event_queue_empty, permitindo assim que a Ikaruga seja desenhada na tela quando já não exista mais nenhum evento responsável por alterar sua condição. 
 
 Ao final do jogo o score do player é comparado com o valor de recorde armazenado em um arquivo binário (que é mais leve e gasta menos memória no processo de modificação) e então uma mensagem na tela aponta se houve um novo recorde alcançado. Caso contrário, uma outra mensagem é mostrada, contendo a informação da pontuação alcançada pelo player e o recorde atual do jogo.
